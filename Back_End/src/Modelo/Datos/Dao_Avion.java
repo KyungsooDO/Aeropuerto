@@ -16,9 +16,11 @@ public class Dao_Avion {
 
     private static final String CMD_AGREGAR
             = "call agregar_avion(?,?);";
-
-    private static final String CMD_ACTUALIZAR
+ private static final String CMD_ACTUALIZAR
             = "call actualizar_avion(?,?);";
+ 
+    private static final String CMD_ACTUALIZAR_TIPO_AVION
+            = "call actualizar_ID_TIPO_AVION(?);";
 
     private static final String CMD_ELIMINAR
             = "call eliminar_avion(?);";
@@ -31,6 +33,9 @@ public class Dao_Avion {
 
     private static final String CMD_BUSCAR
             = "call buscar_avion(?,?);";
+
+    private static final String CMD_VERIFICAR_TIPO_AVION
+            = "call verificar_tipo_avion(?);";
 
     public Dao_Avion() {
         db = new Gestor_Base_Datos();
@@ -90,20 +95,51 @@ public class Dao_Avion {
         return exito;
     }
 
-        public boolean update(Avion p) throws SQLException {
-            boolean exito = false;
+    public boolean verificar_tipoAvion(String id_tipo_avion) throws SQLException, Exception {
 
-            try (Connection cnx = obtenerConexion();
-                    PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR)) {
-                stm.clearParameters();
-                stm.setString(1, p.getIdAvion());
-                stm.setString(2, p.getTipoavion().getIdTipoAvion());
+        boolean resultado = false;
 
-                exito = stm.executeUpdate() == 1;
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_TIPO_AVION)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
             }
-
-            return exito;
         }
+        return resultado;
+    }
+
+    public boolean update_tipo_avion(String id) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_TIPO_AVION)) {
+            stm.clearParameters();
+            stm.setString(1,id);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public boolean update(Avion p) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR)) {
+            stm.clearParameters();
+            stm.setString(1, p.getIdAvion());
+            stm.setString(2, p.getTipoavion().getIdTipoAvion());
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
 
     public Avion get(String id) throws SQLException, Exception {
         Avion avion = new Avion();
