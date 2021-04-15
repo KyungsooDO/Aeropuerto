@@ -613,7 +613,7 @@ delimiter $$
 create procedure actualizar_ID_TIPO_AVION (in a_id_tipo_avion varchar(50))
 begin
 update Avion set tipoAvion=null
-where idAvion=a_id_avion;
+where idAvion=a_id_tipo_avion;
 end$$
 delimiter $$
 
@@ -624,4 +624,151 @@ select* from avion
 where tipoAvion=a_id_tipo_avion;
 end
 delimiter $$
+
+
+delimiter $$
+create procedure verificar_avion_vuelo (in v_avion varchar(50))
+begin
+select* from vuelo
+where avion=v_avion;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_avion_vuelo (in v_id_vuelo varchar(10))
+begin
+update vuelo set avion=null
+where idVuelo=v_id_vuelo;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_pais_ciudad (in c_pais varchar(50))
+begin
+select* from ciudad
+where pais=c_pais;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_pais_ciudad (in c_id varchar(10))
+begin
+update ciudad set pais=null
+where idCiudad=c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_ciudad_origen_vuelo (in v_origen varchar(50))
+begin
+select* from vuelo
+where origen=v_origen;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_ciudad_destino_vuelo (in v_destino varchar(10))
+begin
+select* from vuelo
+where destino=v_destino;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_ciudad_origen_vuelo (in c_id varchar(10))
+begin
+update vuelo set origen=null
+where idVuelo=c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_ciudad_destino_vuelo (in c_id varchar(10))
+begin
+update ciudad set destino=null
+where idVuelo=c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_vuelo_fechavuelo (in f_vuelo varchar(50))
+begin
+select* from fechavuelo
+where vuelo=f_vuelo;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_vuelo_fechavuelo (in c_id varchar(10))
+begin
+update fechavuelo set vuelo=null
+where idFechaVuelo=c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_fechavuelo_reserva (in f_vuelo varchar(50))
+begin
+select* from reserva
+where fechaVuelo=f_vuelo;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_fechavuelo_reserva (in c_id varchar(10))
+begin
+update reserva set fechavuelo=null
+where idReserva = c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_formaPago_reserva (in f_pago varchar(50))
+begin
+select* from reserva
+where formaPago=f_pago;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_formaPago_reserva (in c_id varchar(10))
+begin
+update reserva set formapago=null
+where idReserva = c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_usuario_reserva (in c_usu varchar(50))
+begin
+select* from reserva
+where usuario=c_usu;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_usuario_reserva (in c_id varchar(10))
+begin
+update reserva set usuario=null
+where idReserva = c_id;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_reserva_tiquete (in c_usu int)
+begin
+select* from tiquete
+where reserva=c_usu;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure actualizar_reserva_tiquete (in c_id int)
+begin
+update reserva set reserva=null
+where idTiquete = c_id;
+end$$
+delimiter $$
+
+
 
