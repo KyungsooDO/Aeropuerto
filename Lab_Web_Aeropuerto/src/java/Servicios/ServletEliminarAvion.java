@@ -2,6 +2,7 @@ package Servicios;
 
 import Modelo.Datos.Dao_TipoAvion;
 import Modelo.Logica.Tipoavion;
+import Modelo.Model.Modelo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -43,6 +44,7 @@ public class ServletEliminarAvion extends HttpServlet {
         
         Dao_TipoAvion dTA = Dao_TipoAvion.obtenerInstancia();
         List<String> lista = new ArrayList<>();
+        Modelo model = Modelo.instance();
         
         try (PrintWriter out = response.getWriter()) {
             JSONObject r = new JSONObject();
@@ -66,13 +68,10 @@ public class ServletEliminarAvion extends HttpServlet {
                 }
             }
             
-            Tipoavion ta = new Tipoavion(lista.get(0), lista.get(1), lista.get(2), lista.get(3), 
-                    Integer.parseInt(lista.get(4)), Integer.parseInt(lista.get(5)), Integer.parseInt(lista.get(6)));
-            System.out.print("Aqui debe salir el avion a borrar");
-            System.out.print(ta);
+
             try {
                 
-                dTA.delete(ta);
+                model.eliminar_tipo_avion(lista.get(0));
                 out.print("EXITO");
 //            } catch (InstantiationException ex) {
 //                out.print("ERROR");
