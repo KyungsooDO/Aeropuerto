@@ -604,3 +604,24 @@ select* from usuario
 where idUsuario = u_id and contraseña = u_clave;
 end$$
 delimiter $$
+
+
+
+-- ----------------------------------------------------------------------------------------------------
+
+delimiter $$
+create procedure actualizar_ID_TIPO_AVION (in a_id_tipo_avion varchar(50))
+begin
+update Avion set tipoAvion=null
+where idAvion=a_id_avion;
+end$$
+delimiter $$
+
+delimiter $$
+create procedure verificar_tipo_avion (in a_id_tipo_avion varchar(50))
+begin
+select* from avion
+where tipoAvion=a_id_tipo_avion;
+end
+delimiter $$
+
