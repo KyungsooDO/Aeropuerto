@@ -1,0 +1,101 @@
+body {
+    background: white;
+    
+}
+
+.etiqueta {
+    background-color: #ea6153;
+    color: #ffffff;
+}
+
+h1{
+    text-align:center;
+}
+h2{
+    text-align:center;
+    color: crimson;
+}
+
+#gene{
+
+    color: white;
+}
+
+#tipoTR,#tipoTH{
+    background: appworkspace;
+    width: 10%;
+    text-align: center;
+    vertical-align: central;
+    border-collapse: collapse;
+    padding: 10px 100px 0px 60px;
+    caption-side: bottom;
+    border-color: red brown;
+    border: 1px solid #000;
+}
+#tdpeli{
+
+    width: 10%;
+    text-align: center;
+    vertical-align: central;
+    border-collapse: collapse;
+    padding: 10px 50px 0px 90px;
+    caption-side: bottom;
+    border: 1px solid #000;
+}
+
+
+
+#tipo{
+
+    background-color: steelblue;
+    border: 0;
+    color: white;
+    font-size:20px;
+    
+}
+
+#listadoDiv{
+    width: 30%;
+    float: left;
+    text-align: left;
+    background-color: steelblue;
+}
+
+#listaPeliculas{
+    margin-left: 500px;
+    border: 0.5px solid #000;
+}
+
+th, td {
+    width: 10%;
+    text-align: center;
+    vertical-align: central;
+    border-collapse: collapse;
+    caption-side: bottom;
+
+}
+.boton{
+    border: 2px solid lightgray;
+    border-radius: 10px;
+}
+
+
+
+.hide {
+    display: none;
+}
+
+#fotoView {
+    width: 50px; height:50px;
+}
+
+.icon {
+    width: 20px; height:20px;
+}
+input[type="text"]:valid.focus {box-shadow: 0 0 1px 1px #e77600;}
+input[type="text"]:valid.nofocus {box-shadow:none;}
+
+input.invalid {box-shadow: 0 0 1px 1px red;}
+
+
+
