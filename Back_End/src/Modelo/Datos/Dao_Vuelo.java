@@ -36,6 +36,24 @@ public class Dao_Vuelo {
     private static final String CMD_BUSCAR_ORIGEN_DESTINO
             = "call buscar_vuelo_origen_destino(?,?);";
 
+    private static final String CMD_VERIFICAR_AVION_VUELO
+            = "call verificar_avion_vuelo(?);";
+
+    private static final String CMD_ACTUALIZAR_AVION_VUELO
+            = "call actualizar_avion_vuelo(?);";
+
+    private static final String CMD_VERIFICAR_CIUDAD_ORIGEN_VUELO
+            = "call verificar_ciudad_origen_vuelo(?);";
+
+    private static final String CMD_VERIFICAR_CIUDAD_DESTINO_VUELO
+            = "call verificar_ciudad_destino_vuelo(?);";
+
+    private static final String CMD_ACTUALIZAR_CIUDAD_ORIGEN_VUELO
+            = "call actualizar_ciudad_origen_vuelo(?);";
+
+    private static final String CMD_ACTUALIZAR_CIUDAD_DESTINO_VUELO
+            = "call actualizar_ciudad_destino_vuelo(?);";
+
     public static Dao_Vuelo obtenerInstancia() {
         if (instancia == null) {
             instancia = new Dao_Vuelo();
@@ -63,17 +81,161 @@ public class Dao_Vuelo {
         this.db = db;
     }
 
-    public boolean delete(Vuelo c) throws SQLException {
+    public boolean delete(String c) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, c.getIdVuelo());
+            stm.setString(1, c);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
         return exitoEliminar;
+    }
+
+    public String obtener_verificar_avion(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_AVION_VUELO)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idVuelo");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Avion(String avion) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_AVION_VUELO)) {
+            stm.setString(1, avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_avion(String avion) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_AVION_VUELO)) {
+            stm.clearParameters();
+            stm.setString(1, avion);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public String obtener_verificar_Ciudad_Origen(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_CIUDAD_ORIGEN_VUELO)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idVuelo");
+
+            }
+        }
+        return resultado;
+    }
+
+    public String obtener_verificar_Ciudad_Destino(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_CIUDAD_DESTINO_VUELO)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idVuelo");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Ciudad_Origen(String Ciudad) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_CIUDAD_ORIGEN_VUELO)) {
+            stm.setString(1, Ciudad);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Ciudad_Destino(String Ciudad) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_CIUDAD_DESTINO_VUELO)) {
+            stm.setString(1, Ciudad);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_ciudad_origen_vuelo(String avion) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_CIUDAD_ORIGEN_VUELO)) {
+            stm.clearParameters();
+            stm.setString(1, avion);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public boolean update_ciudad_destino_vuelo(String avion) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_CIUDAD_DESTINO_VUELO)) {
+            stm.clearParameters();
+            stm.setString(1, avion);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
     }
 
     public boolean add(Vuelo c) throws SQLException {

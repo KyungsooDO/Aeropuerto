@@ -30,6 +30,11 @@ public class Dao_FechaVuelo {
     private static final String CMD_LISTAR
             = "call listar_fechavuelo();";
 
+    private static final String CMD_VERIFICAR_VUELO_FECHAVUELO
+            = "call verificar_vuelo_fechavuelo(?);";
+
+    private static final String CMD_ACTUALIZAR_VUELO_FECHAVUELO
+            = "call actualizar_vuelo_fechavuelo(?);";
 
     public Dao_FechaVuelo() {
         this.db = new Gestor_Base_Datos();
@@ -46,6 +51,23 @@ public class Dao_FechaVuelo {
         return instancia;
     }
 
+    public String obtener_verificar_FechaVuelo(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_VUELO_FECHAVUELO)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idFechaVuelo");
+
+            }
+        }
+        return resultado;
+    }
+
     private Connection obtenerConexion() throws SQLException {
         return Gestor_Base_Datos.obtenerInstancia().getConnection();
     }
@@ -56,6 +78,37 @@ public class Dao_FechaVuelo {
 
     public void setDb(Gestor_Base_Datos db) {
         this.db = db;
+    }
+
+    public boolean verificar_Vuelo(String vuelo) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_VUELO_FECHAVUELO)) {
+            stm.setString(1, vuelo);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_Vuelo(String vuelo) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_VUELO_FECHAVUELO)) {
+            stm.clearParameters();
+            stm.setString(1, vuelo);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
     }
 
     public boolean add(Fechavuelo t) throws SQLException {
@@ -96,13 +149,13 @@ public class Dao_FechaVuelo {
         return exito;
     }
 
-    public boolean delete(Fechavuelo t) throws SQLException {
+    public boolean delete(String t) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, t.getIdFechaVuelo());
+            stm.setString(1, t);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
@@ -151,7 +204,6 @@ public class Dao_FechaVuelo {
 
         return l;
     }
-
 
     public List<Fechavuelo> search(Fechavuelo t) throws SQLException, Exception {
         List<Fechavuelo> l = new ArrayList<>();

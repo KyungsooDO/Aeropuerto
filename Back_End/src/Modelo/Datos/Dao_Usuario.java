@@ -63,13 +63,13 @@ public class Dao_Usuario {
         return Gestor_Base_Datos.obtenerInstancia().getConnection();
     }
 
-    public boolean delete(Usuario p) throws SQLException {
+    public boolean delete(String p) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, p.getIdUsuario());
+            stm.setString(1, p);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 

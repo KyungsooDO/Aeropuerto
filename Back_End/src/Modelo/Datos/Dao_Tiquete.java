@@ -37,6 +37,12 @@ public class Dao_Tiquete {
     private static final String CMD_BUSCAR_TIQUETES_RESERVA
             = "call buscar_tiquete_reserva(?);";
 
+    private static final String CMD_VERIFICAR_RESERVA_TIQUETE
+            = "call verificar_reserva_tiquete(?);";
+
+    private static final String CMD_ACTUALIZAR_RESERVA_TIQUETE
+            = "call actualizar_reserva_tiquete(?);";
+
     public static Dao_Tiquete obtenerInstancia() {
         if (instancia == null) {
             instancia = new Dao_Tiquete();
@@ -62,6 +68,54 @@ public class Dao_Tiquete {
 
     public void setDb(Gestor_Base_Datos db) {
         this.db = db;
+    }
+
+    public int obtener_verificar_Reserva(int id_tipo_avion) throws SQLException, Exception {
+
+        int resultado = 0;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_RESERVA_TIQUETE)) {
+            stm.setInt(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getInt("idTiquete");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Reserva(int usuario) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_RESERVA_TIQUETE)) {
+            stm.setInt(1, usuario);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_Reserva(int usuario) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_RESERVA_TIQUETE)) {
+            stm.clearParameters();
+            stm.setInt(1, usuario);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
     }
 
     public boolean add(Tiquete t) throws SQLException {
@@ -97,13 +151,13 @@ public class Dao_Tiquete {
         return exito;
     }
 
-    public boolean delete(Tiquete t) throws SQLException {
+    public boolean delete(int t) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, Integer.toString(t.getIdTiquete()));
+            stm.setInt(1,t);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 

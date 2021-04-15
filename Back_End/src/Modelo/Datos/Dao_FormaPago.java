@@ -56,13 +56,13 @@ public class Dao_FormaPago {
         this.db = db;
     }
 
-    public boolean delete(Formapago p) throws SQLException {
+    public boolean delete(String p) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, p.getIdFormaPago());
+            stm.setString(1, p);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 

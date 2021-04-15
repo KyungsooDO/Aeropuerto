@@ -34,6 +34,12 @@ public class Dao_Ciudad {
     private static final String CMD_BUSCAR
             = "call buscar_ciudad(?,?);";
 
+    private static final String CMD_VERIFICAR_PAIS_CIUDAD
+            = "call verificar_pais_ciudad(?);";
+
+    private static final String CMD_ACTUALIZAR_PAIS_CIUDAD
+            = "call actualizar_pais_ciudad(?);";
+
     Gestor_Base_Datos db;
 
     public Dao_Ciudad() {
@@ -63,13 +69,61 @@ public class Dao_Ciudad {
         this.db = db;
     }
 
-    public boolean delete(Ciudad c) throws SQLException {
+    public String obtener_verificar_Pais(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_PAIS_CIUDAD)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idCiudad");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Pais(String pais) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_PAIS_CIUDAD)) {
+            stm.setString(1, pais);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_pais(String pais) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_PAIS_CIUDAD)) {
+            stm.clearParameters();
+            stm.setString(1, pais);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public boolean delete(String c) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, c.getIdCiudad());
+            stm.setString(1, c);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 

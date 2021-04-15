@@ -1,6 +1,7 @@
 package Modelo.Datos;
 
 import Modelo.Logica.Avion;
+import Modelo.Logica.Tipoavion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,9 +17,9 @@ public class Dao_Avion {
 
     private static final String CMD_AGREGAR
             = "call agregar_avion(?,?);";
- private static final String CMD_ACTUALIZAR
+    private static final String CMD_ACTUALIZAR
             = "call actualizar_avion(?,?);";
- 
+
     private static final String CMD_ACTUALIZAR_TIPO_AVION
             = "call actualizar_ID_TIPO_AVION(?);";
 
@@ -64,13 +65,13 @@ public class Dao_Avion {
         this.db = db;
     }
 
-    public boolean delete(Avion p) throws SQLException {
+    public boolean delete(String p) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, p.getIdAvion());
+            stm.setString(1, p);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
@@ -118,12 +119,29 @@ public class Dao_Avion {
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_TIPO_AVION)) {
             stm.clearParameters();
-            stm.setString(1,id);
+            stm.setString(1, id);
 
             exito = stm.executeUpdate() == 1;
         }
 
         return exito;
+    }
+
+    public String obtener_verificar_tipoAvion(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_TIPO_AVION)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idAvion");
+
+            }
+        }
+        return resultado;
     }
 
     public boolean update(Avion p) throws SQLException {

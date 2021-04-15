@@ -30,6 +30,9 @@ public class Dao_Pais {
     private static final String CMD_LISTAR
             = "call listar_pais();";
 
+    
+
+
     public static Dao_Pais obtenerInstancia() {
         if (instancia == null) {
             instancia = new Dao_Pais();
@@ -56,14 +59,16 @@ public class Dao_Pais {
     public void setDb(Gestor_Base_Datos db) {
         this.db = db;
     }
+    
 
-    public boolean delete(Pais p) throws SQLException {
+
+    public boolean delete(String p) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, p.getIdPais());
+            stm.setString(1, p);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
@@ -118,6 +123,8 @@ public class Dao_Pais {
         }
         return pais;
     }
+    
+
 
     public List<Pais> getAll() throws SQLException, Exception {
         List<Pais> l = new ArrayList<>();

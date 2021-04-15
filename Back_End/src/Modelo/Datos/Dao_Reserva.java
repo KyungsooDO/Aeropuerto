@@ -38,6 +38,24 @@ public class Dao_Reserva {
     private static final String CMD_LISTAR_TODOS_TIQUETES
             = "call listar_tiquetes_por_fechavuelo(?);";
 
+    private static final String CMD_VERIFICAR_FECHAVUELO_RESERVA
+            = "call verificar_fechavuelo_reserva(?);";
+
+    private static final String CMD_ACTUALIZAR_FECHAVUELO_RESERVA
+            = "call actualizar_fechavuelo_reserva(?);";
+
+    private static final String CMD_VERIFICAR_FORMAPAGO_RESERVA
+            = "call verificar_formaPago_reserva(?);";
+
+    private static final String CMD_ACTUALIZAR_FORMAPAGO_RESERVA
+            = "call actualizar_formaPago_reserva(?);";
+
+    private static final String CMD_VERIFICAR_USUARIO_RESERVA
+            = "call verificar_usuario_reserva(?);";
+
+    private static final String CMD_ACTUALIZAR_USUARIO_RESERVA
+            = "call actualizar_usuario_reserva(?);";
+
     public static Dao_Reserva obtenerInstancia() {
         if (instancia == null) {
             instancia = new Dao_Reserva();
@@ -83,6 +101,150 @@ public class Dao_Reserva {
         return exito;
     }
 
+    public String obtener_verificar_FechaVuelo(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_FECHAVUELO_RESERVA)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idReserva");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_FechaVuelo(String fechavuelo) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_FECHAVUELO_RESERVA)) {
+            stm.setString(1, fechavuelo);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_FechaVuelo(String fechavuelo) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_FECHAVUELO_RESERVA)) {
+            stm.clearParameters();
+            stm.setString(1, fechavuelo);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public String obtener_verificar_FormaPago(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_FORMAPAGO_RESERVA)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idReserva");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_FormaPago(String formapago) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_FORMAPAGO_RESERVA)) {
+            stm.setString(1, formapago);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_FormaPago(String formapago) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_FORMAPAGO_RESERVA)) {
+            stm.clearParameters();
+            stm.setString(1, formapago);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
+    public String obtener_verificar_Usuario(String id_tipo_avion) throws SQLException, Exception {
+
+        String resultado = "";
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_USUARIO_RESERVA)) {
+            stm.setString(1, id_tipo_avion);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = rs.getString("idReserva");
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean verificar_Usuario(String usuario) throws SQLException, Exception {
+
+        boolean resultado = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_USUARIO_RESERVA)) {
+            stm.setString(1, usuario);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                resultado = true;
+
+            }
+        }
+        return resultado;
+    }
+
+    public boolean update_Usuario(String usuario) throws SQLException {
+        boolean exito = false;
+
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_ACTUALIZAR_USUARIO_RESERVA)) {
+            stm.clearParameters();
+            stm.setString(1, usuario);
+
+            exito = stm.executeUpdate() == 1;
+        }
+
+        return exito;
+    }
+
     public int lastReserva() throws SQLException {
         String sql = "select max(idReserva) from reserva";
         ResultSet rs = db.executeQuery(sql);
@@ -107,13 +269,13 @@ public class Dao_Reserva {
         return exito;
     }
 
-    public boolean delete(Reserva t) throws SQLException {
+    public boolean delete(int t) throws SQLException {
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, Integer.toString(t.getIdReserva()));
+            stm.setInt(1, t);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
@@ -210,8 +372,6 @@ public class Dao_Reserva {
 
         return l;
     }
-
-  
 
     public List<String> allTiquetes(String idFechaVuelo) throws SQLException, Exception {
         List<String> l = new ArrayList<>();
