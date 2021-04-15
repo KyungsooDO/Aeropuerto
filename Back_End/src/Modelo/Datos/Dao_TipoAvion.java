@@ -57,18 +57,23 @@ public class Dao_TipoAvion {
         this.db = db;
     }
 
-    public boolean delete(Tipoavion ta) throws SQLException {
+    public boolean delete(String id_avion) throws SQLException {
+        
+        
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
                 PreparedStatement stm = cnx.prepareStatement(CMD_ELIMINAR)) {
             stm.clearParameters();
-            stm.setString(1, ta.getIdTipoAvion());
+            stm.setString(1, id_avion);
             exitoEliminar = stm.executeUpdate() == 1;
         }
 
         return exitoEliminar;
     }
+    
+    
+    
 
     public boolean add(Tipoavion ta) throws SQLException {
 
