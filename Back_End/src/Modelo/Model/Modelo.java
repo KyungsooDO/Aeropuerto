@@ -5,7 +5,9 @@
  */
 package Modelo.Model;
 
+import Modelo.Datos.Dao_Avion;
 import Modelo.Datos.Dao_Ciudad;
+import Modelo.Datos.Dao_TipoAvion;
 import Modelo.Datos.Dao_Usuario;
 import Modelo.Datos.Dao_Vuelo;
 import Modelo.Logica.Ciudad;
@@ -27,6 +29,8 @@ public class Modelo {
     private Dao_Usuario daoUsuario;
     private Dao_Ciudad daoCiudad;
     private Dao_Vuelo daoVuelo;
+    private Dao_TipoAvion daotipoavion;
+    private Dao_Avion daoAvion;
 
     public static Modelo instance() {
         if (uniqueInstance == null) {
@@ -39,6 +43,8 @@ public class Modelo {
         daoUsuario = Dao_Usuario.obtenerInstancia();
         daoCiudad = Dao_Ciudad.obtenerInstancia();
         daoVuelo = Dao_Vuelo.obtenerInstancia();
+        daotipoavion = Dao_TipoAvion.obtenerInstancia();
+        daoAvion = Dao_Avion.obtenerInstancia();
     }
 //
 
@@ -74,6 +80,18 @@ public class Modelo {
 
     }
 
+    public void eliminar_tipo_avion(String id) throws Exception {
+        if (daoAvion.verificar_tipoAvion(id)) {
+            System.out.println("Si hay un avion con ese id tipo avion");
+            daoAvion.update_tipo_avion(id);
+            daotipoavion.delete(id);
+
+        } else {
+            daotipoavion.delete(id);
+            System.out.println("NO hay un avion con ese id tipo avion");
+        }
+    }
+
     public Ciudad obtener_por_nombre(String nombre) {
         Ciudad ciudad = new Ciudad();
         try {
@@ -101,7 +119,9 @@ public class Modelo {
 //        Ciudad ciudad =  new Ciudad();
         Modelo modelo = new Modelo();
 //        ciudad = modelo.obtener_por_nombre("San Jose");
-        List<Vuelo> vuelo = modelo.obtener_vuelos_origen_destino("01", "02");
-        System.out.println(vuelo);
+//        List<Vuelo> vuelo = modelo.obtener_vuelos_origen_destino("01", "02");
+//        System.out.println(vuelo);
+        // modelo.eliminar_tipo_avion("02");
+//        modelo.verificar("01");
     }
 }
