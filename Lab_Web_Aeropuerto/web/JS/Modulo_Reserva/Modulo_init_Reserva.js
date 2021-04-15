@@ -35,8 +35,8 @@ function list(peliculas) {
 
 function row(listado, pelicula) {
     var tr = $("<tr />");
-    tr.html("<td id='tdpeli'>" + pelicula.ciudad.nombre + "</td>" +
-            "<td id='tdpeli'>" + pelicula.ciudad1.nombre + "</td>" +
+    tr.html("<td id='tdpeli'>" + pelicula.ciudad.nombre+"-"+pelicula.ciudad.pais.nombre + "</td>" +
+            "<td id='tdpeli'>" + pelicula.ciudad1.nombre+"-"+pelicula.ciudad1.pais.nombre + "</td>" +
             "<td id='tdpeli'>" + pelicula.hora + "</td>" +
             "<td id='tdpeli'>" + pelicula.dia + "</td>" +
             "<td id='tdpeli'><input type = 'button' id = 'editar' value='Reservar'></td>");
