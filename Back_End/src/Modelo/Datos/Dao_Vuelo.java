@@ -251,11 +251,11 @@ public class Dao_Vuelo {
 
             stm.setString(1, c.getIdVuelo());
             stm.setString(2, c.getDia());
-            stm.setString(3, c.getHoraString());
+            stm.setString(3, c.getHora());
             stm.setString(4, c.getAvion().getIdAvion());
             stm.setString(5, c.getCiudad().getIdCiudad());
             stm.setString(6, c.getCiudad1().getIdCiudad());
-            stm.setString(7, c.getDuracionString());
+            stm.setString(7, c.getDuracion());
 
             exito = stm.executeUpdate() == 1;
         }
@@ -271,11 +271,11 @@ public class Dao_Vuelo {
             stm.clearParameters();
 
             stm.setString(1, c.getDia());
-            stm.setString(2, c.getHoraString());
+            stm.setString(2, c.getHora());
             stm.setString(3, c.getAvion().getIdAvion());
             stm.setString(4, c.getCiudad().getIdCiudad());
             stm.setString(5, c.getCiudad1().getIdCiudad());
-            stm.setString(6, c.getDuracionString());
+            stm.setString(6, c.getDuracion());
             stm.setString(7, c.getIdVuelo());
 
             exito = stm.executeUpdate() == 1;
@@ -299,8 +299,8 @@ public class Dao_Vuelo {
                 t.setAvion(dao.get(rs.getString("avion")));
                 t.setCiudad(dao2.get(rs.getString("origen")));
                 t.setCiudad1(dao2.get(rs.getString("destino")));
-                t.setDuracion(rs.getTime("duracion"));
-                t.setHora(rs.getTime("hora"));
+                t.setDuracion(rs.getString("duracion"));
+                t.setHora(rs.getString("hora"));
 
             }
         }
@@ -323,8 +323,8 @@ public class Dao_Vuelo {
                 u.setAvion(dao.get(rs.getString("avion")));
                 u.setCiudad(dao2.get(rs.getString("origen")));
                 u.setCiudad1(dao2.get(rs.getString("destino")));
-                u.setDuracion(rs.getTime("duracion"));
-                u.setHora(rs.getTime("hora"));
+                u.setDuracion(rs.getString("duracion"));
+                u.setHora(rs.getString("hora"));
                 l.add(u);
             }
         }
@@ -353,8 +353,8 @@ public class Dao_Vuelo {
                 t.setAvion(dao.get(rs.getString("avion")));
                 t.setCiudad(dao2.get(rs.getString("origen")));
                 t.setCiudad1(dao2.get(rs.getString("destino")));
-                t.setDuracion(rs.getTime("duracion"));
-                t.setHora(rs.getTime("hora"));
+                t.setDuracion(rs.getString("duracion"));
+                t.setHora(rs.getString("hora"));
                 l.add(t);
             }
         } catch (SQLException ex) {
@@ -380,8 +380,8 @@ public class Dao_Vuelo {
                 t.setAvion(dao.get(rs.getString("avion")));
                 t.setCiudad(dao2.get(rs.getString("origen")));
                 t.setCiudad1(dao2.get(rs.getString("destino")));
-                t.setDuracion(rs.getTime("duracion"));
-                t.setHora(rs.getTime("hora"));
+                t.setDuracion(rs.getString("duracion"));
+                t.setHora(rs.getString("hora"));
                 vuelos.add(t);
 
             }
