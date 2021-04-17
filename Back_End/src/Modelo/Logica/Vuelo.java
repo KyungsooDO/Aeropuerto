@@ -8,8 +8,8 @@ public class Vuelo {
 
     private String idVuelo;
     private String dia;
-    private Date hora;
-    private Date duracion;
+    private String hora;
+    private String duracion;
     private List<Fechavuelo> fechavueloList;
     private Avion avion;
     private Ciudad ciudad;
@@ -22,14 +22,14 @@ public class Vuelo {
         this.idVuelo = idVuelo;
     }
 
-    public Vuelo(String idVuelo, String dia, Date hora, Date duracion) {
+    public Vuelo(String idVuelo, String dia, String hora, String duracion) {
         this.idVuelo = idVuelo;
         this.dia = dia;
         this.hora = hora;
         this.duracion = duracion;
     }
 
-    public Vuelo(String idVuelo, String dia, Date hora, Date duracion, Avion avion, Ciudad ciudad, Ciudad ciudad1) {
+    public Vuelo(String idVuelo, String dia, String hora, String duracion, Avion avion, Ciudad ciudad, Ciudad ciudad1) {
         this.idVuelo = idVuelo;
         this.dia = dia;
         this.hora = hora;
@@ -55,7 +55,7 @@ public class Vuelo {
         this.dia = dia;
     }
 
-    public Date getHora() {
+    public String getHora() {
         return hora;
     }
 
@@ -64,11 +64,11 @@ public class Vuelo {
         return sdf.format(hora);
     }
 
-    public void setHora(Date hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public Date getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
@@ -77,7 +77,7 @@ public class Vuelo {
         return sdf.format(duracion);
     }
 
-    public void setDuracion(Date duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
