@@ -1,19 +1,8 @@
-///-- Variables y funciones privadas ---///
-
-//---VARIABLES---///
-
 export  let Agregar = new BackBean();
 
-// ---funciones-----/// 
 export function BackBean() {
-    //this.idDoc = null;
     this.addIdentificador = null;
-    this.addModelo = null;
-    this.addMarca = null;
-    this.addAno = null;
-    this.addAsientos = null;
-    this.addFilas = null;
-    this.addColumnas = null;
+    this.idTipoAvion = null;
 }
 
 export function enviarFormularioAgregarTipoAvion(idForm) {
@@ -40,19 +29,17 @@ export function enviarFormularioAgregarTipoAvion(idForm) {
         }
     }
     
-    getJSONConfirmacion('ServletAgregarAvion', datos, procesarRespuestas);
+    getJSONConfirmacion('ServletAgregarAvionFlota', datos, procesarRespuestas);
 
     return false;
-
 }
 
 export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
-        mensajeEditar("SE AGREGÓ AVION CON EXITO", "exito");
+        mensajeEditar("SE AGREGÓ AVIÓN DE FLOTA CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE AGREGÓ AVION", "error");
+        mensajeEditar("NO SE AGREGÓ AVIÓN DE FLOTA", "error");
     }
-
 }
 
 export function mensajeEditar(mensaje, tipo) {
@@ -78,7 +65,3 @@ export function mensajeEditar(mensaje, tipo) {
         $('#mensajeConfirmacion').modal('hide');
     }, 2000);
 }
-
-
-
-

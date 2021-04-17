@@ -1,11 +1,14 @@
 package Modelo.Datos;
 
+import Modelo.Logica.Ciudad;
 import Modelo.Logica.Vuelo;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -384,5 +387,27 @@ public class Dao_Vuelo {
             }
         }
         return vuelos;
+    }
+
+    public static String SelectVuelo(Modelo.Datos.Dao_Vuelo md, String idFechaVuelo) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
+        return md.SelectVuelo(idFechaVuelo);
+    }
+
+    public String SelectVuelo(String idFechaVuelo) throws Exception {
+        StringBuilder contenidos = new StringBuilder();
+        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idFechaVuelo));
+
+        List<Vuelo> vuelos = this.getAll();
+        if (!vuelos.isEmpty()) {
+            for (Vuelo m : vuelos) {
+                contenidos.append(String.format("\t\t<option value=\"%s\">%s</option>\n",
+                        m.getIdVuelo(), m.getIdVuelo()));
+            }
+        } else {
+            contenidos.append("\t\t<option value=\"0\">No existe ningun vuelo registrado.</option>\n");
+        }
+
+        contenidos.append("\t</select>");
+        return contenidos.toString();
     }
 }

@@ -56,7 +56,7 @@ export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
         mensajeEditar("SE ACTUALIZÓ EL AVION CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE ACTUALIZÓ EL DOCUMENTO", "error");
+        mensajeEditar("NO SE ACTUALIZÓ EL AVION", "error");
     }
 }
 

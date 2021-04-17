@@ -1,35 +1,38 @@
-///-- Variables y funciones privadas ---///
+import {aviones} from './CargaDatosAvionFlota.js';
+export let Editar = new BackBean();
+export let AvionesNew = null;
 
-//---VARIABLES---///
+function cargarVentana() {
+    AvionesNew = null;
+    AvionesNew = aviones;
+    var datos = new FormData();
+    getJSON('ServletListadoAvionesFlota', datos, procesarRespuesta);
+}
 
-export  let Agregar = new BackBean();
+export function procesarRespuesta(datos) {
+    AvionesNew = datos["lista-aviones-flota"];
+}
 
-// ---funciones-----/// 
 export function BackBean() {
     //this.idDoc = null;
     this.addIdentificador = null;
-    this.addModelo = null;
-    this.addMarca = null;
-    this.addAno = null;
-    this.addAsientos = null;
-    this.addFilas = null;
-    this.addColumnas = null;
+    this.idTipoAvion = null;
 }
 
-export function enviarFormularioAgregarTipoAvion(idForm) {
+export function enviarFormularioActualizacionAviones(idForm) {
     let datos = new FormData();
     let property;
 
-    for (property in Agregar) {
+    for (property in Editar) {
         let refCampo = document.getElementById(property);
         if (refCampo) {
             let v = refCampo.value;
             if (!(typeof (v) === 'undefined' || v === null || v === "")) {
-                Agregar[property] = v;
+                Editar[property] = v;
                 datos.append(property, v);
             }
         } else {
-            let v = Agregar[property];
+            let v = Editar[property];
             if (Array.isArray(v)) {
                 v.forEach((e) => {
                     datos.append(property, e);
@@ -39,20 +42,18 @@ export function enviarFormularioAgregarTipoAvion(idForm) {
             }
         }
     }
-    
-    getJSONConfirmacion('ServletAgregarAvion', datos, procesarRespuestas);
+
+    getJSONConfirmacion('ServletEditarAvionFlota', datos, procesarRespuestas);
 
     return false;
-
 }
 
 export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
-        mensajeEditar("SE AGREGÓ AVION CON EXITO", "exito");
+        mensajeEditar("SE ACTUALIZÓ LA FLOTA DE AVIONES CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE AGREGÓ AVION", "error");
+        mensajeEditar("NO SE ACTUALIZÓ LA FLOTA DE AVIONES", "error");
     }
-
 }
 
 export function mensajeEditar(mensaje, tipo) {
@@ -79,6 +80,13 @@ export function mensajeEditar(mensaje, tipo) {
     }, 2000);
 }
 
-
-
-
+export function editarFila() {
+    cargarVentana();
+    var indice = event.target.getAttribute("indice");
+    console.log("indice: " + indice);
+    var producto = AvionesNew[(parseInt(indice))];
+    console.log(producto);
+    document.getElementById("idDoc").value = producto.idAvion;
+    document.getElementById("editIdentificador").value = producto.tipoAvion;
+    document.getElementById("idTipoAvion").value = producto.tipoAvion.trim();
+}

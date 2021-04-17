@@ -1,7 +1,5 @@
 package Servicios;
 
-import Modelo.Datos.Dao_TipoAvion;
-import Modelo.Logica.Tipoavion;
 import Modelo.Model.Modelo;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,13 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ *
+ * @author Grelvin
+ */
 @WebServlet(
-        name = "ServletEliminarAvion",
-        urlPatterns = {"/ServletEliminarAvion"}
+        name = "ServletEliminarAvionFlota",
+        urlPatterns = {"/ServletEliminarAvionFlota"}
 )
 
 @MultipartConfig
-public class ServletEliminarAvion extends HttpServlet {
+
+public class ServletEliminarAvionFlota extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,17 +42,15 @@ public class ServletEliminarAvion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
-        Dao_TipoAvion dTA = Dao_TipoAvion.obtenerInstancia();
+
         List<String> lista = new ArrayList<>();
         Modelo model = Modelo.instance();
-        
         try (PrintWriter out = response.getWriter()) {
+
             JSONObject r = new JSONObject();
             Enumeration<String> p = request.getParameterNames();
-            
+
             while (p.hasMoreElements()) {
                 String n = p.nextElement();
                 String[] v = request.getParameterValues(n);
@@ -67,12 +68,11 @@ public class ServletEliminarAvion extends HttpServlet {
                     r.put(n, a);
                 }
             }
-            
 
             try {
-                
-                model.eliminar_tipo_avion(lista.get(0));
-                
+
+                model.eliminar_avion(lista.get(0));
+
                 out.print("EXITO");
 //            } catch (InstantiationException ex) {
 //                out.print("ERROR");
@@ -87,6 +87,7 @@ public class ServletEliminarAvion extends HttpServlet {
                 out.print("ERROR");
                 Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
 

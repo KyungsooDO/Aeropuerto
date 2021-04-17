@@ -20,6 +20,30 @@
         <servlet-name>ServletEliminarAvion</servlet-name>
         <servlet-class>Servicios.ServletEliminarAvion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarVuelo</servlet-name>
+        <servlet-class>Servicios.ServletAgregarVuelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarAvionFlota</servlet-name>
+        <servlet-class>Servicios.ServletAgregarAvionFlota</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditarAvionFlota</servlet-name>
+        <servlet-class>Servicios.ServletEditarAvionFlota</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletListadoAvionesFlota</servlet-name>
+        <servlet-class>Servicios.ServletListadoAvionesFlota</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEliminarAvionFlota</servlet-name>
+        <servlet-class>Servicios.ServletEliminarAvionFlota</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditarVuelo</servlet-name>
+        <servlet-class>Servicios.ServletEditarVuelo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SeveltLogin</servlet-name>
         <url-pattern>/SeveltLogin</url-pattern>
@@ -39,6 +63,30 @@
     <servlet-mapping>
         <servlet-name>ServletEliminarAvion</servlet-name>
         <url-pattern>/ServletEliminarAvion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarVuelo</servlet-name>
+        <url-pattern>/ServletAgregarVuelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarAvionFlota</servlet-name>
+        <url-pattern>/ServletAgregarAvionFlota</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarAvionFlota</servlet-name>
+        <url-pattern>/ServletEditarAvionFlota</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListadoAvionesFlota</servlet-name>
+        <url-pattern>/ServletListadoAvionesFlota</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEliminarAvionFlota</servlet-name>
+        <url-pattern>/ServletEliminarAvionFlota</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarVuelo</servlet-name>
+        <url-pattern>/ServletEditarVuelo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

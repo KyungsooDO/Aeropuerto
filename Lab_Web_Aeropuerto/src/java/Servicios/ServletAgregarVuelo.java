@@ -1,11 +1,17 @@
 package Servicios;
 
-import Modelo.Datos.Dao_TipoAvion;
-import Modelo.Logica.Tipoavion;
-import Modelo.Model.Modelo;
+import Modelo.Datos.Dao_Avion;
+import Modelo.Datos.Dao_Ciudad;
+import Modelo.Datos.Dao_Vuelo;
+import Modelo.Logica.Avion;
+import Modelo.Logica.Ciudad;
+import Modelo.Logica.Vuelo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -20,13 +26,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ *
+ * @author Grelvin
+ */
 @WebServlet(
-        name = "ServletEliminarAvion",
-        urlPatterns = {"/ServletEliminarAvion"}
+        name = "ServletAgregarVuelo",
+        urlPatterns = {"/ServletAgregarVuelo"}
 )
 
 @MultipartConfig
-public class ServletEliminarAvion extends HttpServlet {
+
+public class ServletAgregarVuelo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,15 +49,17 @@ public class ServletEliminarAvion extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        
-        Dao_TipoAvion dTA = Dao_TipoAvion.obtenerInstancia();
+
+        Dao_Vuelo dv = Dao_Vuelo.obtenerInstancia();
+        Dao_Avion da = Dao_Avion.obtenerInstancia();
+        Dao_Ciudad dc = Dao_Ciudad.obtenerInstancia();
         List<String> lista = new ArrayList<>();
-        Modelo model = Modelo.instance();
-        
+
         try (PrintWriter out = response.getWriter()) {
+
             JSONObject r = new JSONObject();
             Enumeration<String> p = request.getParameterNames();
             
@@ -67,25 +80,34 @@ public class ServletEliminarAvion extends HttpServlet {
                     r.put(n, a);
                 }
             }
+            String formato = "HH:mm";
+            SimpleDateFormat formatter = new SimpleDateFormat(formato);
+            Date date = new Date();
+            Date date1 = new Date();
+            try{
+                date = formatter.parse(lista.get(2));
+                date = formatter.parse(lista.get(3));
+            } catch (ParseException ex){
+                
+            }
+            Avion a = da.get(lista.get(4));
+            Ciudad c = dc.obtener_por_nombre_ciudad(lista.get(5));
+            Ciudad c1 = dc.obtener_por_nombre_ciudad(lista.get(6));
             
-
+                    
+            Vuelo v = new Vuelo(lista.get(0), lista.get(1), date, date1, a, c, c1);
+            
+            System.out.print(v);
+            
             try {
-                
-                model.eliminar_tipo_avion(lista.get(0));
-                
+                dv.add(v);
                 out.print("EXITO");
-//            } catch (InstantiationException ex) {
-//                out.print("ERROR");
-//                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (IllegalAccessException ex) {
-//                out.print("ERROR");
-//                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 out.print("ERROR");
-                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 out.print("ERROR");
-                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -102,7 +124,11 @@ public class ServletEliminarAvion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -116,7 +142,11 @@ public class ServletEliminarAvion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

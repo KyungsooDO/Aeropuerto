@@ -1,11 +1,14 @@
 package Modelo.Datos;
 
+import Modelo.Logica.Avion;
 import Modelo.Logica.Ciudad;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -244,6 +247,28 @@ public class Dao_Ciudad {
         }
 
         return l;
+    }
+
+    public static String SelectCiudad(Modelo.Datos.Dao_Ciudad md, String idCiudad) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
+        return md.SelectCiudad(idCiudad);
+    }
+
+    public String SelectCiudad(String idCiudad) throws Exception {
+        StringBuilder contenidos = new StringBuilder();
+        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idCiudad));
+
+        List<Ciudad> ciudades = this.getAll();
+        if (!ciudades.isEmpty()) {
+            for (Ciudad m : ciudades) {
+                contenidos.append(String.format("\t\t<option value=\"%s\">%s</option>\n",
+                        m.getIdCiudad(), m.getNombre()));
+            }
+        } else {
+            contenidos.append("\t\t<option value=\"0\">No existe ninguna ciudad registrada.</option>\n");
+        }
+
+        contenidos.append("\t</select>");
+        return contenidos.toString();
     }
 
 }

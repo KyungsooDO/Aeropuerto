@@ -1,8 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Servicios;
 
+import Modelo.Datos.Dao_Avion;
 import Modelo.Datos.Dao_TipoAvion;
+import Modelo.Logica.Avion;
 import Modelo.Logica.Tipoavion;
-import Modelo.Model.Modelo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -20,13 +26,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ *
+ * @author Grelvin
+ */
+
 @WebServlet(
-        name = "ServletEliminarAvion",
-        urlPatterns = {"/ServletEliminarAvion"}
+        name = "ServletEditarAvionFlota",
+        urlPatterns = {"/ServletEditarAvionFlota"}
 )
 
 @MultipartConfig
-public class ServletEliminarAvion extends HttpServlet {
+public class ServletEditarAvionFlota extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +49,19 @@ public class ServletEliminarAvion extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         
-        Dao_TipoAvion dTA = Dao_TipoAvion.obtenerInstancia();
+        Dao_Avion da = Dao_Avion.obtenerInstancia();
+        Dao_TipoAvion dta = Dao_TipoAvion.obtenerInstancia();
         List<String> lista = new ArrayList<>();
-        Modelo model = Modelo.instance();
         
         try (PrintWriter out = response.getWriter()) {
             JSONObject r = new JSONObject();
+
             Enumeration<String> p = request.getParameterNames();
-            
+
             while (p.hasMoreElements()) {
                 String n = p.nextElement();
                 String[] v = request.getParameterValues(n);
@@ -67,25 +79,25 @@ public class ServletEliminarAvion extends HttpServlet {
                     r.put(n, a);
                 }
             }
+            Tipoavion t = dta.get(lista.get(1));
+            Avion a = new Avion(lista.get(0));
+            a.setTipoavion(t);
             
-
             try {
-                
-                model.eliminar_tipo_avion(lista.get(0));
-                
-                out.print("EXITO");
+                da.update(a);
+                out.print(r);
 //            } catch (InstantiationException ex) {
-//                out.print("ERROR");
+//                out.print(r = null);
 //                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
 //            } catch (IllegalAccessException ex) {
-//                out.print("ERROR");
+//                out.print(r = null);
 //                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                out.print("ERROR");
-                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
+                out.print(r = null);
+                Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                out.print("ERROR");
-                Logger.getLogger(ServletEditarAvion.class.getName()).log(Level.SEVERE, null, ex);
+                out.print(r = null);
+                Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -102,7 +114,11 @@ public class ServletEliminarAvion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -116,7 +132,11 @@ public class ServletEliminarAvion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

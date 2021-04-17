@@ -1,11 +1,13 @@
 package Modelo.Datos;
 
 import Modelo.Logica.Tipoavion;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +60,7 @@ public class Dao_TipoAvion {
     }
 
     public boolean delete(String id_avion) throws SQLException {
-        
-        
+
         boolean exitoEliminar = false;
 
         try (Connection cnx = obtenerConexion();
@@ -71,9 +72,6 @@ public class Dao_TipoAvion {
 
         return exitoEliminar;
     }
-    
-    
-    
 
     public boolean add(Tipoavion ta) throws SQLException {
 
@@ -186,4 +184,27 @@ public class Dao_TipoAvion {
         }
         return l;
     }
+
+    public static String SelectTipoAvion(Modelo.Datos.Dao_TipoAvion md, String idTipoAvion) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
+        return md.SelectTipoAvion(idTipoAvion);
+    }
+
+    public String SelectTipoAvion(String idTipoAvion) throws Exception {
+        StringBuilder contenidos = new StringBuilder();
+        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idTipoAvion));
+
+        List<Tipoavion> aviones = this.getAll();
+        if (!aviones.isEmpty()) {
+            for (Tipoavion m : aviones) {
+                contenidos.append(String.format("\t\t<option value=\"%s\">%s</option>\n",
+                        m.getIdTipoAvion(), m.getIdTipoAvion()));
+            }
+        } else {
+            contenidos.append("\t\t<option value=\"0\">No existe ningun avión registrado.</option>\n");
+        }
+
+        contenidos.append("\t</select>");
+        return contenidos.toString();
+    }
+
 }

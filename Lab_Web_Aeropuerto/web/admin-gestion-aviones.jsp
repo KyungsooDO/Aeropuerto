@@ -361,7 +361,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>Identificador</label>
-                                <input type="hidden" id ="idDoc" class="form-control">
+                                <input type="hidden" id="idDoc" class="form-control">
                                 <input type="text" class="form-control" id="editIdentificador" required>
                             </div>
                             <div class="form-group">

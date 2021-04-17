@@ -3,7 +3,9 @@
     Created on : 14-abr-2021, 17:55:09
     Author     : Grelvin
 --%>
-
+<%@page import="Modelo.Logica.Usuario"%>
+<%@page import="Modelo.Logica.Avion"%>
+<%@taglib prefix="combobox" uri="/WEB-INF/tlds/combox"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +26,48 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
   <!-- ===== CSS ===== -->
   <link rel="stylesheet" href="CSS/adminGA.css">
+  
+  <!-- ===== JS ===== -->
+  <script src="JS/getJSON.js" type="text/javascript"></script>
+  <script src="JS/Modulo_CRUD_Flota/Modulo_CRUD_Flota.js" type="module"></script>
+  
 
+  <!-- ===== JAVA ===== -->
+  
+  <% response.setHeader("cache-control", "no-cache, no-store, must-revalidate"); %>
+
+        
+
+  <%  Usuario u = (Usuario) request.getSession(true).getAttribute("usuario");
+      if (u == null || u.getRol()== "Cliente") {
+        response.sendRedirect("login.jsp");
+      }
+  %>
+  
   <title>Administración</title>
 </head>
 
+    <% HttpSession se = request.getSession(true);
+            Usuario u1 = (Usuario) se.getAttribute("usuario");
+
+            if (u1 == null) {
+                u1 = new Usuario();
+            }
+            String union = "";
+            try {
+                String nombre = u.getNombre();
+                String cedula = u.getIdUsuario();
+                union = nombre + "-" + cedula;
+
+            } catch (Exception ex) {
+                union = "N/A";
+            }
+
+            //se.removeAttribute("usuario");
+            //se.invalidate();
+    %>
+
+<jsp:useBean class="Modelo.Datos.Dao_TipoAvion" id="md" scope="request"></jsp:useBean>
 <body id="body-pd">
   <header class="header" id="header">
     <div class="header__toggle">
@@ -35,7 +75,7 @@
     </div>
 
     <div class="header__user">
-      <p>Nombre del usuario</p>
+      <p><%=union%></p>
     </div>
 
     <div class="header__img">
@@ -101,9 +141,9 @@
               <h2>Gestión de <b>Flota</b></h2>
             </div>
             <div class="col-sm-6">
-              <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
+              <a href="#addAvionModal" class="btn btn-success" data-toggle="modal"><i
                   class="material-icons">&#xE147;</i> <span>Añadir nueva Flota</span></a>
-              <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
+              <a href="#deleteAvionModal" class="btn btn-danger" data-toggle="modal"><i
                   class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>
             </div>
           </div>
@@ -122,142 +162,34 @@
               <th>Acción</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <span class="custom-checkbox">
-                  <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                  <label for="checkbox1"></label>
-                </span>
-              </td>
-              <td>B0001</td>
-              <td>BO123</td>
-              <td>
-                <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
-                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-              </td>
-            </tr>
+          <tbody id="cuerpoTabla">
+            
           </tbody>
         </table>
+          <div class="alert alert-danger alertaLibros text-center" role="alert">
+               NO HAY FLOTAS EN LA BASE DE DATOS
+          </div>
       </div>
     </div>
 
   <!-- Add Modal HTML -->
-  <div id="addEmployeeModal" class="modal fade">
+  <div id="addAvionModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form name="formAñadir" id="formAddAvion" method="POST">
           <div class="modal-header">
-            <h4 class="modal-title">Añadir Avión</h4>
+            <h4 class="modal-title">Añadir Avión a Flota</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
               <label>Identificador</label>
-              <input type="text" class="form-control" required>
+              <input type="text" class="form-control" id="addIdentificador" minlength="5" maxlength="5" required>
             </div>
             <div class="form-group">
-              <label>Modelo</label>
-              <input type="text" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Asientos</label>
-              <input type="number" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Filas</label>
-              <input type="number" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Columnas</label>
-              <input type="number" class="form-control" required>
+              <label>Tipo de Avion</label>
+              ${combobox:SelectTipoAvion(md, "idTipoAvion")}
+              <!-- <input type="text" class="form-control" id="addIdentificadorTipoAvion" required> -->
             </div>
           </div>
           <div class="modal-footer">
@@ -269,34 +201,24 @@
     </div>
   </div>
   <!-- Edit Modal HTML -->
-  <div id="editEmployeeModal" class="modal fade">
+  <div id="editAvionModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form name="formEditar" id="formEditAvion" method="POST">
           <div class="modal-header">
-            <h4 class="modal-title">Edit Employee</h4>
+            <h4 class="modal-title">Editar Flota</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
               <label>Identificador</label>
-              <input type="text" class="form-control" required>
+              <input type="hidden" id ="idDoc" class="form-control">
+              <input type="text" class="form-control" id="editIdentificador" required>
             </div>
             <div class="form-group">
-              <label>Modelo</label>
-              <input type="text" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Asientos</label>
-              <input type="number" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Filas</label>
-              <input type="number" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label>Nº de Columnas</label>
-              <input type="number" class="form-control" required>
+              <label>Tipo de Avion</label>
+              ${combobox:SelectTipoAvion(md, "idTipoAvion")}
+              <!-- <input type="text" class="form-control" id="addIdentificadorTipoAvion" required> -->
             </div>
           </div>
           <div class="modal-footer">
@@ -308,28 +230,57 @@
     </div>
   </div>
   <!-- Delete Modal HTML -->
-  <div id="deleteEmployeeModal" class="modal fade">
+  <div id="deleteAvionModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form name="formBorrar" id="formDeleteAvion" method="POST">
           <div class="modal-header">
-            <h4 class="modal-title">Eliminar Avión</h4>
+            <h4 class="modal-title">Eliminar Flota</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
-            <p>¿Está seguro de eliminar este Avión?</p>
+            <p>¿Está seguro de eliminar esta Flota?</p>
             <p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
           </div>
           <div class="modal-footer">
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <input type="submit" class="btn btn-danger" value="Eliminar">
+            <input type="submit" class="btn btn-danger btnDisplayElim" value="Eliminar">
           </div>
         </form>
       </div>
     </div>
   </div>
+  
+  <div id="deleteAvionModalTodo" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="formDeleteAvionTodo" name="formulario_2" method="POST">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Eliminar Las Flotas Seleccionadas</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Está seguro de eliminar lass flotas?</p>
+                            <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" class="btn btn-danger btnDisplayElimTodo"  value="Eliminar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-
+  <div id="mensajeConfirmacion" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div id="cuerpoMensaje" class="modal-content pt-0 justify-content-center border border-success rounded">
+                    <div class="modal-body mt-4" >
+                        <p class=" text-center align-middle text-success font-weight-bolder p-2">...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
       <!-- <h2 class="dash-title">Gestión de Aviones</h2>
       <section class="recent">

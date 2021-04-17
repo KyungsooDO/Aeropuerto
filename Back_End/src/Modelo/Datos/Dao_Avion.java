@@ -2,11 +2,13 @@ package Modelo.Datos;
 
 import Modelo.Logica.Avion;
 import Modelo.Logica.Tipoavion;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,6 +220,28 @@ public class Dao_Avion {
         }
 
         return l;
+    }
+
+    public static String SelectAvion(Modelo.Datos.Dao_Avion md, String idAvion) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
+        return md.SelectAvion(idAvion);
+    }
+
+    public String SelectAvion(String idAvion) throws Exception {
+        StringBuilder contenidos = new StringBuilder();
+        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idAvion));
+
+        List<Avion> aviones = this.getAll();
+        if (!aviones.isEmpty()) {
+            for (Avion m : aviones) {
+                contenidos.append(String.format("\t\t<option value=\"%s\">%s</option>\n",
+                        m.getIdAvion(), m.getIdAvion()));
+            }
+        } else {
+            contenidos.append("\t\t<option value=\"0\">No existe ningun avión registrado.</option>\n");
+        }
+
+        contenidos.append("\t</select>");
+        return contenidos.toString();
     }
 
 }

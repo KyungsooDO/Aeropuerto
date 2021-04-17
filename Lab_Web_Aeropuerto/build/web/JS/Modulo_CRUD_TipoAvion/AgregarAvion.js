@@ -48,9 +48,9 @@ export function enviarFormularioAgregarTipoAvion(idForm) {
 
 export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
-        mensajeEditar("SE AGREGÓ DOCUMENTO CON EXITO", "exito");
+        mensajeEditar("SE AGREGÓ AVION CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE AGREGÓ DOCUMENTO", "error");
+        mensajeEditar("NO SE AGREGÓ AVION", "error");
     }
 
 }
@@ -77,7 +77,6 @@ export function mensajeEditar(mensaje, tipo) {
     setTimeout(() => {
         $('#mensajeConfirmacion').modal('hide');
     }, 2000);
-
 }
 
 
