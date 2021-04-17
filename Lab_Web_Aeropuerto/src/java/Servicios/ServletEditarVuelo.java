@@ -84,22 +84,13 @@ public class ServletEditarVuelo extends HttpServlet {
                     r.put(n, a);
                 }
             }
-            String formato = "HH:mm";
-            SimpleDateFormat formatter = new SimpleDateFormat(formato);
-            Date date = new Date();
-            Date date1 = new Date();
-            try{
-                date = formatter.parse(lista.get(2));
-                date = formatter.parse(lista.get(3));
-            } catch (ParseException ex){
-                
-            }
+
             Avion a = da.get(lista.get(4));
             Ciudad c = dc.get(lista.get(5));
             Ciudad c1 = dc.get(lista.get(6));
             
                     
-            Vuelo v = new Vuelo(lista.get(0), lista.get(1), date, date1, a, c, c1);
+            Vuelo v = new Vuelo(lista.get(0), lista.get(1), lista.get(2), lista.get(3), a, c, c1);
             
             System.out.print(v);
             
