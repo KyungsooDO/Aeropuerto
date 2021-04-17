@@ -80,12 +80,12 @@ public class ServletAgregarVuelo extends HttpServlet {
                     r.put(n, a);
                 }
             }
-            Avion a = da.get(lista.get(4));
-            Ciudad c = dc.obtener_por_nombre_ciudad(lista.get(5));
-            Ciudad c1 = dc.obtener_por_nombre_ciudad(lista.get(6));
+            Avion a = da.get(lista.get(3));
+            Ciudad c = dc.get(lista.get(4));
+            Ciudad c1 = dc.get(lista.get(5));
             
                     
-            Vuelo v = new Vuelo(lista.get(0), lista.get(1), lista.get(2), lista.get(3), a, c, c1);
+            Vuelo v = new Vuelo(lista.get(0), lista.get(1), lista.get(2), lista.get(6), a, c, c1);
             
             System.out.print(v);
             
