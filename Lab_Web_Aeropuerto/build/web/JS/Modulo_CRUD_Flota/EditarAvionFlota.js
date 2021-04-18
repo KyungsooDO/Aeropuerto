@@ -15,7 +15,7 @@ export function procesarRespuesta(datos) {
 
 export function BackBean() {
     //this.idDoc = null;
-    this.addIdentificador = null;
+    this.editIdentificador = null;
     this.idTipoAvion = null;
 }
 
@@ -87,6 +87,6 @@ export function editarFila() {
     var producto = AvionesNew[(parseInt(indice))];
     console.log(producto);
     document.getElementById("idDoc").value = producto.idAvion;
-    document.getElementById("editIdentificador").value = producto.tipoAvion;
+    document.getElementById("editIdentificador").value = producto.idAvion;
     document.getElementById("idTipoAvion").value = producto.tipoAvion.trim();
 }

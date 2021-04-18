@@ -100,14 +100,10 @@
             <span class="nav__name">Gestión de Flota</span>
           </a>
 
-          <a href="#" class="nav__link">
-            <i class='bx bx-bar-chart-alt-2 nav__icon'></i>
-            <span class="nav__name">Resportes</span>
-          </a>
         </div>
       </div>
 
-      <a href="#" class="nav__link">
+      <a href="ServletLogout" class="nav__link">
         <i class='bx bx-log-out nav__icon'></i>
         <span class="nav__name">Log Out</span>
       </a>
@@ -118,48 +114,6 @@
     <main>
 
       <h2 class="dash-title">Overview</h2>
-
-      <div class="dash-cards">
-        <div class="card-single">
-          <div class="card-body">
-            <span class="ti-money"></span>
-            <div>
-              <h5>Ganancia del último mes</h5>
-              <h4>$30,659.45</h4>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="">View all</a>
-          </div>
-        </div>
-
-        <div class="card-single">
-          <div class="card-body">
-            <span class="ti-money"></span>
-            <div>
-              <h5>Ingreso por Año</h5>
-              <h4>$19,500.45</h4>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="">View all</a>
-          </div>
-        </div>
-
-        <div class="card-single">
-          <div class="card-body">
-            <span class="ti-money"></span>
-            <div>
-              <h5>Processed</h5>
-              <h4>$20,659</h4>
-            </div>
-          </div>
-          <div class="card-footer">
-            <a href="">View all</a>
-          </div>
-        </div>
-      </div>
-
 
       <section class="recent">
         <div class="activity-grid">

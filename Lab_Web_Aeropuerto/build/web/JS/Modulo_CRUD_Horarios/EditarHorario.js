@@ -1,25 +1,28 @@
-import {aviones} from './CargaDatosAvionFlota.js';
+import {vuelos} from './CargaDatosHorario.js';
 export let Editar = new BackBean();
-export let AvionesNew = null;
+export let VuelosNew = null;
 
 function cargarVentana() {
-    AvionesNew = null;
-    AvionesNew = aviones;
+    VuelosNew = null;
+    VuelosNew = vuelos;
     var datos = new FormData();
-    getJSON('ServletListadoAvionesFlota', datos, procesarRespuesta);
+    getJSON('ServletListadoHorarios', datos, procesarRespuesta);
 }
 
 export function procesarRespuesta(datos) {
-    AvionesNew = datos["lista-aviones-flota"];
+    VuelosNew = datos["lista-horarios"];
 }
 
 export function BackBean() {
     //this.idDoc = null;
     this.editIdentificador = null;
-    this.idTipoAvion = null;
+    this.editIdVuelo = null;
+    this.editFecha = null;
+    this.editDisponibles = null;
+    this.editPrecio = null;
 }
 
-export function enviarFormularioActualizacionAviones(idForm) {
+export function enviarFormularioActualizacionVuelos(idForm) {
     let datos = new FormData();
     let property;
 
@@ -43,16 +46,16 @@ export function enviarFormularioActualizacionAviones(idForm) {
         }
     }
 
-    getJSONConfirmacion('ServletEditarAvionFlota', datos, procesarRespuestas);
+    getJSONConfirmacion('ServletEditarHorario', datos, procesarRespuestas);
 
     return false;
 }
 
 export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
-        mensajeEditar("SE ACTUALIZÓ LA FLOTA DE AVIONES CON EXITO", "exito");
+        mensajeEditar("SE ACTUALIZÓ EL VUELO CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE ACTUALIZÓ LA FLOTA DE AVIONES", "error");
+        mensajeEditar("NO SE ACTUALIZÓ EL VUELO", "error");
     }
 }
 
@@ -84,9 +87,12 @@ export function editarFila() {
     cargarVentana();
     var indice = event.target.getAttribute("indice");
     console.log("indice: " + indice);
-    var producto = AvionesNew[(parseInt(indice))];
+    var producto = VuelosNew[(parseInt(indice))];
     console.log(producto);
-    document.getElementById("idDoc").value = producto.idAvion;
-    document.getElementById("editIdentificador").value = producto.idAvion;
-    document.getElementById("idTipoAvion").value = producto.tipoAvion.trim();
+    document.getElementById("idDoc").value = producto.idFechaVuelo;
+    document.getElementById("editIdentificador").value = producto.idFechaVuelo;
+    document.getElementById("editIdVuelo").value = producto.vuelo.trim();
+    document.getElementById("editFecha").value = producto.fecha.trim();
+    document.getElementById("editDisponibles").value = producto.disponibles;
+    document.getElementById("editPrecio").value = producto.precio;
 }

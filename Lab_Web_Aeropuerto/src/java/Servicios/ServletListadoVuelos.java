@@ -1,25 +1,16 @@
 
 package Servicios;
 
-import Modelo.Datos.Dao_Avion;
-import Modelo.Datos.Dao_Ciudad;
 import Modelo.Datos.Dao_Vuelo;
 import Modelo.Logica.Avion;
-import Modelo.Logica.Ciudad;
 import Modelo.Logica.Vuelo;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,13 +23,11 @@ import org.json.JSONObject;
  * @author Grelvin
  */
 @WebServlet(
-        name = "ServletEditarVuelo",
-        urlPatterns = {"/ServletEditarVuelo"}
+        name = "ServletListadoVuelos",
+        urlPatterns = {"/ServletListadoVuelos"}
 )
 
-@MultipartConfig
-
-public class ServletEditarVuelo extends HttpServlet {
+public class ServletListadoVuelos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,56 +40,41 @@ public class ServletEditarVuelo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
-        Dao_Vuelo dv = Dao_Vuelo.obtenerInstancia();
-        Dao_Avion da = Dao_Avion.obtenerInstancia();
-        Dao_Ciudad dc = Dao_Ciudad.obtenerInstancia();
-        List<String> lista = new ArrayList<>();
-
         try (PrintWriter out = response.getWriter()) {
-            JSONObject r = new JSONObject();
-            Enumeration<String> p = request.getParameterNames();
-            
-            while (p.hasMoreElements()) {
-                String n = p.nextElement();
-                String[] v = request.getParameterValues(n);
-
-                if (v.length == 1) {
-                    r.put(n, v[0]);
-                    lista.add(v[0]);
-
-                } else {
-                    JSONArray a = new JSONArray();
-                    for (String s : v) {
-
-                        a.put(s);
-                    }
-                    r.put(n, a);
-                }
-            }
-
-            Avion a = da.get(lista.get(4));
-            Ciudad c = dc.get(lista.get(5));
-            Ciudad c1 = dc.get(lista.get(6));
-            
-                    
-            Vuelo v = new Vuelo(lista.get(0), lista.get(1), lista.get(2), lista.get(3), a, c, c1);
-            
-            System.out.print(v);
-            
-            try {
-                dv.update(v);
-                out.print("EXITO");
-            } catch (SQLException ex) {
-                out.print("ERROR");
-                Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                out.print("ERROR");
-                Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            out.println(this.lista_vuelos());
         }
+    }
+
+    private JSONObject lista_vuelos() throws Exception {
+
+        List<Vuelo> lista = new ArrayList<>();
+        lista = dv.getAll();
+        JSONObject obj = toJSON(lista);
+        //System.out.println(obj.toString(4));
+        return obj;
+    }
+
+    private JSONObject toJSON(List<Vuelo> aviones) {
+        JSONArray a = new JSONArray();
+        aviones.forEach((p) -> {
+            a.put(toJSON(p));
+        });
+        JSONObject r = new JSONObject();
+        r.put("lista-vuelos", a);
+        return r;
+    }
+
+    private JSONObject toJSON(Vuelo a) {
+        JSONObject r = new JSONObject();
+        r.put("idVuelo", a.getIdVuelo());
+        r.put("dia", a.getDia());
+        r.put("hora", a.getHora());
+        r.put("idFlota", a.getAvion().getIdAvion());
+        r.put("idOrigen", a.getCiudad() + ", " + a.getCiudad().getPais().getNombre());
+        r.put("idDestino", a.getCiudad1()  + ", " + a.getCiudad1().getPais().getNombre());
+        r.put("duracion", a.getDuracion());
+        return r;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -118,7 +92,7 @@ public class ServletEditarVuelo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -136,7 +110,7 @@ public class ServletEditarVuelo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletEditarAvionFlota.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -150,4 +124,5 @@ public class ServletEditarVuelo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private final Dao_Vuelo dv = Dao_Vuelo.obtenerInstancia();
 }

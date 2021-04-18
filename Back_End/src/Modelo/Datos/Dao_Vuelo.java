@@ -389,13 +389,13 @@ public class Dao_Vuelo {
         return vuelos;
     }
 
-    public static String SelectVuelo(Modelo.Datos.Dao_Vuelo md, String idFechaVuelo) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
-        return md.SelectVuelo(idFechaVuelo);
+    public static String SelectVuelo(Modelo.Datos.Dao_Vuelo md, String idVuelo) throws InstantiationException, InstantiationException, InstantiationException, IOException, IllegalAccessException, ClassNotFoundException, ParseException, Exception {
+        return md.SelectVuelo(idVuelo);
     }
 
-    public String SelectVuelo(String idFechaVuelo) throws Exception {
+    public String SelectVuelo(String idVuelo) throws Exception {
         StringBuilder contenidos = new StringBuilder();
-        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idFechaVuelo));
+        contenidos.append(String.format("\t<select id=\"%1$s\" name=\"%1$s\">\n", idVuelo));
 
         List<Vuelo> vuelos = this.getAll();
         if (!vuelos.isEmpty()) {

@@ -1,11 +1,8 @@
-
 package Servicios;
 
-import Modelo.Datos.Dao_Avion;
-import Modelo.Datos.Dao_Ciudad;
+import Modelo.Datos.Dao_FechaVuelo;
 import Modelo.Datos.Dao_Vuelo;
-import Modelo.Logica.Avion;
-import Modelo.Logica.Ciudad;
+import Modelo.Logica.Fechavuelo;
 import Modelo.Logica.Vuelo;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,13 +29,12 @@ import org.json.JSONObject;
  * @author Grelvin
  */
 @WebServlet(
-        name = "ServletEditarVuelo",
-        urlPatterns = {"/ServletEditarVuelo"}
+        name = "ServletAgregarHorario",
+        urlPatterns = {"/ServletAgregarHorario"}
 )
 
 @MultipartConfig
-
-public class ServletEditarVuelo extends HttpServlet {
+public class ServletAgregarHorario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,14 +51,13 @@ public class ServletEditarVuelo extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         Dao_Vuelo dv = Dao_Vuelo.obtenerInstancia();
-        Dao_Avion da = Dao_Avion.obtenerInstancia();
-        Dao_Ciudad dc = Dao_Ciudad.obtenerInstancia();
+        Dao_FechaVuelo dfv = Dao_FechaVuelo.obtenerInstancia();
         List<String> lista = new ArrayList<>();
 
         try (PrintWriter out = response.getWriter()) {
             JSONObject r = new JSONObject();
             Enumeration<String> p = request.getParameterNames();
-            
+
             while (p.hasMoreElements()) {
                 String n = p.nextElement();
                 String[] v = request.getParameterValues(n);
@@ -80,25 +75,28 @@ public class ServletEditarVuelo extends HttpServlet {
                     r.put(n, a);
                 }
             }
+            
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            try {
+                date = formatter.parse(lista.get(2));
+            } catch (ParseException ex) {
 
-            Avion a = da.get(lista.get(4));
-            Ciudad c = dc.get(lista.get(5));
-            Ciudad c1 = dc.get(lista.get(6));
+            }
             
-                    
-            Vuelo v = new Vuelo(lista.get(0), lista.get(1), lista.get(2), lista.get(3), a, c, c1);
-            
-            System.out.print(v);
+            Vuelo v = dv.get(lista.get(1));
+            Fechavuelo fv = new Fechavuelo(lista.get(0), date, Integer.parseInt(lista.get(3)), Integer.parseInt(lista.get(4)));
+            fv.setVuelo(v);
             
             try {
-                dv.update(v);
+                dfv.add(fv);
                 out.print("EXITO");
             } catch (SQLException ex) {
                 out.print("ERROR");
-                Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletAgregarHorario.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 out.print("ERROR");
-                Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServletAgregarHorario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -118,7 +116,7 @@ public class ServletEditarVuelo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletAgregarHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -136,7 +134,7 @@ public class ServletEditarVuelo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ServletEditarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletAgregarHorario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

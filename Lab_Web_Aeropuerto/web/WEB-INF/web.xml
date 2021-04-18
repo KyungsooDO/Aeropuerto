@@ -44,6 +44,30 @@
         <servlet-name>ServletEditarVuelo</servlet-name>
         <servlet-class>Servicios.ServletEditarVuelo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletListadoVuelos</servlet-name>
+        <servlet-class>Servicios.ServletListadoVuelos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEliminarVuelo</servlet-name>
+        <servlet-class>Servicios.ServletEliminarVuelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletAgregarHorario</servlet-name>
+        <servlet-class>Servicios.ServletAgregarHorario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletListadoHorarios</servlet-name>
+        <servlet-class>Servicios.ServletListadoHorarios</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEditarHorario</servlet-name>
+        <servlet-class>Servicios.ServletEditarHorario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletEliminarHorario</servlet-name>
+        <servlet-class>Servicios.ServletEliminarHorario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SeveltLogin</servlet-name>
         <url-pattern>/SeveltLogin</url-pattern>
@@ -87,6 +111,30 @@
     <servlet-mapping>
         <servlet-name>ServletEditarVuelo</servlet-name>
         <url-pattern>/ServletEditarVuelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListadoVuelos</servlet-name>
+        <url-pattern>/ServletListadoVuelos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEliminarVuelo</servlet-name>
+        <url-pattern>/ServletEliminarVuelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletAgregarHorario</servlet-name>
+        <url-pattern>/ServletAgregarHorario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletListadoHorarios</servlet-name>
+        <url-pattern>/ServletListadoHorarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEditarHorario</servlet-name>
+        <url-pattern>/ServletEditarHorario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEliminarHorario</servlet-name>
+        <url-pattern>/ServletEliminarHorario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

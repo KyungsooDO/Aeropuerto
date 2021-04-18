@@ -117,14 +117,10 @@
             <span class="nav__name">Gestión de Flota</span>
           </a>
 
-          <a href="#" class="nav__link">
-            <i class='bx bx-bar-chart-alt-2 nav__icon'></i>
-            <span class="nav__name">Resportes</span>
-          </a>
         </div>
       </div>
 
-      <a href="#" class="nav__link">
+      <a href="ServletLogout" class="nav__link">
         <i class='bx bx-log-out nav__icon'></i>
         <span class="nav__name">Log Out</span>
       </a>
@@ -143,7 +139,7 @@
             <div class="col-sm-6">
               <a href="#addAvionModal" class="btn btn-success" data-toggle="modal"><i
                   class="material-icons">&#xE147;</i> <span>Añadir nueva Flota</span></a>
-              <a href="#deleteAvionModal" class="btn btn-danger" data-toggle="modal"><i
+              <a href="#deleteAvionModal" class="btn btn-danger btnEliminarTodo" data-toggle="modal"><i
                   class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>
             </div>
           </div>
@@ -184,7 +180,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label>Identificador</label>
-              <input type="text" class="form-control" id="addIdentificador" minlength="5" maxlength="5" required>
+              <input type="text" class="form-control" id="addIdentificador" maxlength="5" required>
             </div>
             <div class="form-group">
               <label>Tipo de Avion</label>
@@ -281,270 +277,7 @@
                 </div>
             </div>
         </div>
-
-      <!-- <h2 class="dash-title">Gestión de Aviones</h2>
-      <section class="recent">
-        <div class="activity-grid-aviones">
-          <div class="activity-card">
-            <div class="row">
-              <h3>Lista de aviones</h3>
-              <a href="#addFlight" class="addFlight" id="addFlight">Añadir Avión</a>
-            </div>
-            <div class="table-responsive">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Identificador</th>
-                    <th>Modelo</th>
-                    <th>Nº de Asientos</th>
-                    <th>Cantidad de Filas</th>
-                    <th>Cantidad de Columnas</th>
-                    <th>Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight2" data-toggle="modal" >Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight2">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight3">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight3">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight4">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight4">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight5">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight5">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight6">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight6">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight7">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight7">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight8">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight8">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight9">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight9">Borrar</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>A123B</td>
-                    <td>AIRBUSS</td>
-                    <td>150</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>
-                      <a href="#editFlight" class="editFlight" id="editFlight10">Editar</a>
-                      <a href="#deleteFlight" class="deleteFlight" id="deleteFlight10">Borrar</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="pagination">
-              <a href="#">&laquo;</a>
-              <a class="" href="#">1</a>
-              <a class="" href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <a href="#">6</a>
-              <a href="#">&raquo;</a>
-            </div>
-
-          </div>
-        </div>
-      </section> -->
-
-
-      <!-- ========== Modal para agregar avion ============ -->
-      <!-- <div id="#addFlight" class="modal">
-
-        <div class="modal-content">
-          <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Añadir Avión</h2>
-          </div>
-          <div class="modal-body">
-            <form action="">
-
-              <div class="input-box">
-                <label for="identificador">Identificador</label>
-                <input type="text" name="" id="" placeholder="Digite el identificador">
-              </div>
-
-              <div class="input-box">
-                <label for="modelo">Modelo</label>
-                <input type="text" name="" id="" placeholder="Digite el modelo">
-              </div>
-
-              <div class="input-box">
-                <label for="pasajeros">Nº de Pasajeros</label>
-                <input type="number" name="" id="" placeholder="Digite el Nº de pasajeros">
-              </div>
-
-              <div class="input-box">
-                <label for="filas">Nº de Filas</label>
-                <input type="text" name="" id="" placeholder="Digite el Nº de Filas">
-              </div>
-
-              <div class="input-box">
-                <label for="identificador">Nº de Columnas</label>
-                <input type="text" name="" id="" placeholder=" Digite la cantidad de asientos">
-              </div>
-
-            </form>
-          </div>
-
-          <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <input type="submit" class="btn btn-success btnAddBook" value="Añadir">
-          </div>
-        </div>
-      </div>
-
-       ========== Modal para editar avion ============ 
-      <div id="#editFlight" class="modal">
-        
-        <div class="modal-content">
-          <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Editar Avión</h2>
-          </div>
-          <div class="modal-body">
-            <form action="">
-
-              <div class="input-box">
-                <label for="identificador">Identificador</label>
-                <input type="text" name="" id="" placeholder="Digite el identificador">
-              </div>
-
-              <div class="input-box">
-                <label for="modelo">Modelo</label>
-                <input type="text" name="" id="" placeholder="Digite el modelo">
-              </div>
-
-              <div class="input-box">
-                <label for="pasajeros">Nº de Pasajeros</label>
-                <input type="number" name="" id="" placeholder="Digite el Nº de pasajeros">
-              </div>
-
-              <div class="input-box">
-                <label for="filas">Nº de Filas</label>
-                <input type="text" name="" id="" placeholder="Digite el Nº de Filas">
-              </div>
-
-              <div class="input-box">
-                <label for="identificador">Nº de Columnas</label>
-                <input type="text" name="" id="" placeholder=" Digite la cantidad de asientos">
-              </div>
-
-            </form>
-          </div>
-
-          <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <input type="submit" class="btn btn-success btnEditBook" value="Editar">
-          </div>
-        </div>
-      </div>
-
-       ========== Modal para eliminar avion ============ 
-      <div id="#deleteFlight" class="modal">
-        <div class="modal-content">
-          <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Eliminar Avión</h2>
-          </div>
-          <div class="modal-body">
-           <p>¿Está seguro de eliminar el avión?</p>
-           <p></p>
-          </div>
-          
-          <div class="modal-footer">
-            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <input type="submit" class="btn btn-success btnDeleteAvion" value="Eliminar">
-          </div>
-        </div>
-      </div>
-    </div> -->
-      
+  
     </main>
   </div>
 

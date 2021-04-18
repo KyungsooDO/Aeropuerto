@@ -1,25 +1,30 @@
-import {aviones} from './CargaDatosAvionFlota.js';
+import {vuelos} from './CargaDatosVuelo.js';
 export let Editar = new BackBean();
-export let AvionesNew = null;
+export let VuelosNew = null;
 
 function cargarVentana() {
-    AvionesNew = null;
-    AvionesNew = aviones;
+    VuelosNew = null;
+    VuelosNew = vuelos;
     var datos = new FormData();
-    getJSON('ServletListadoAvionesFlota', datos, procesarRespuesta);
+    getJSON('ServletListadoVuelos', datos, procesarRespuesta);
 }
 
 export function procesarRespuesta(datos) {
-    AvionesNew = datos["lista-aviones-flota"];
+    VuelosNew = datos["lista-vuelos"];
 }
 
 export function BackBean() {
     //this.idDoc = null;
     this.editIdentificador = null;
-    this.idTipoAvion = null;
+    this.editDia = null;
+    this.editHora = null;
+    this.editIdAvion = null;
+    this.editIdOrigen = null;
+    this.editIdDestino = null;
+    this.editIdDuración = null;
 }
 
-export function enviarFormularioActualizacionAviones(idForm) {
+export function enviarFormularioActualizacionVuelos(idForm) {
     let datos = new FormData();
     let property;
 
@@ -43,16 +48,16 @@ export function enviarFormularioActualizacionAviones(idForm) {
         }
     }
 
-    getJSONConfirmacion('ServletEditarAvionFlota', datos, procesarRespuestas);
+    getJSONConfirmacion('ServletEditarVuelo', datos, procesarRespuestas);
 
     return false;
 }
 
 export function procesarRespuestas(datos) {
     if (datos !== "ERROR") {
-        mensajeEditar("SE ACTUALIZÓ LA FLOTA DE AVIONES CON EXITO", "exito");
+        mensajeEditar("SE ACTUALIZÓ EL VUELO CON EXITO", "exito");
     } else {
-        mensajeEditar("NO SE ACTUALIZÓ LA FLOTA DE AVIONES", "error");
+        mensajeEditar("NO SE ACTUALIZÓ EL VUELO", "error");
     }
 }
 
@@ -84,9 +89,14 @@ export function editarFila() {
     cargarVentana();
     var indice = event.target.getAttribute("indice");
     console.log("indice: " + indice);
-    var producto = AvionesNew[(parseInt(indice))];
+    var producto = VuelosNew[(parseInt(indice))];
     console.log(producto);
-    document.getElementById("idDoc").value = producto.idAvion;
-    document.getElementById("editIdentificador").value = producto.idAvion;
-    document.getElementById("idTipoAvion").value = producto.tipoAvion.trim();
+    document.getElementById("idDoc").value = producto.idVuelo;
+    document.getElementById("editIdentificador").value = producto.idVuelo;
+    document.getElementById("editDia").value = producto.dia.trim();
+    document.getElementById("editHora").value = producto.hora.trim();
+    document.getElementById("editIdAvion").value = producto.idFlota.trim();
+    document.getElementById("editIdOrigen").value = producto.idOrigen.trim();
+    document.getElementById("editIdDestino").value = producto.idDestino.trim();
+    document.getElementById("editIdDuración").value = producto.duracion.trim();
 }

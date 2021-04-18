@@ -1,7 +1,7 @@
-import {enviarFormularioAgregarTipoAvion} from './AgregarVuelo.js';
-import {enviarFormularioActualizacionVuelos, editarFila} from './EditarVuelo.js';
-import {enviarFormularioEliminarAvion, eliminarAvion, SelectAllCheckBoxes, elimininarTodo} from './EliminarVuelo.js';
-import {cargarListado} from './CargaDatosVuelo.js';
+import {enviarFormularioAgregarTipoAvion} from './AgregarHorario.js';
+import {enviarFormularioActualizacionVuelos, editarFila} from './EditarHorario.js';
+import {enviarFormularioEliminarAvion, eliminarAvion, SelectAllCheckBoxes, elimininarTodo} from './EliminarHorario.js';
+import {cargarListado} from './CargaDatosHorario.js';
 
 const formAddAvion = document.querySelector('#formAddAvion');
 const formEditAvion = document.querySelector('#formEditAvion');
@@ -9,8 +9,6 @@ const formDeleteAvion = document.querySelector('#formDeleteAvion');
 const formDeleteAvionAll = document.querySelector('#formDeleteAvionTodo');
 
 const checkBoxAll = document.querySelector('#selectAll');
-const cuerpoTabla = document.querySelector('#cuerpoTabla');
-
 eventListeners();
 
 function eventListeners() {
@@ -37,8 +35,8 @@ function eventListeners() {
             cargarListado();
         }, 1000);
     });
-
-    formDeleteAvion.addEventListener('submit', (e) => {
+    
+        formDeleteAvion.addEventListener('submit', (e) => {
         e.preventDefault();
         $("#deleteAvionModal").modal('hide');
         enviarFormularioEliminarAvion(false);
