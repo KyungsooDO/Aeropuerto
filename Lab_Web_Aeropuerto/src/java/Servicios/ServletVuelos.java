@@ -42,38 +42,6 @@ public class ServletVuelos extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html;charset=UTF-8");
-//        response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
-//        List<String> lista = new ArrayList<>();
-//        JSONObject r = new JSONObject();
-//        Enumeration<String> p = request.getParameterNames();
-//        while (p.hasMoreElements()) {
-//            String n = p.nextElement();
-//            String[] v = request.getParameterValues(n);
-//
-//            if (v.length == 1) {
-//                r.put(n, v[0]);
-//                lista.add(v[0]);
-//
-//            } else {
-//                JSONArray a = new JSONArray();
-//                for (String s : v) {
-//
-//                    a.put(s);
-//                }
-//                r.put(n, a);
-//            }
-//        }
-//       // String origen = lista.get(0).trim();
-//        //String destino = lista.get(1).trim();
-//        
-//       // System.out.println("Origen:"+origen);
-//       // System.out.println("Destino:"+destino);
-//
-//        try (PrintWriter out = response.getWriter()) {
-//            out.println(this.lista_vuelos());
-//        }
 
         BufferedReader reader = request.getReader();
         Gson gson = new Gson();

@@ -9,6 +9,8 @@ public class Reserva {
     private Usuario usuario;
     private Fechavuelo fechavuelo;
     private Formapago formapago;
+    private String fecha;
+    private String pago;
 
     public Reserva() {
         tiqueteList = null;
@@ -17,6 +19,29 @@ public class Reserva {
     public Reserva(Integer idReserva) {
         this.idReserva = idReserva;
     }
+
+    public Reserva(String fecha, String pago) {
+        this.fecha = fecha;
+        this.pago = pago;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getPago() {
+        return pago;
+    }
+
+    public void setPago(String pago) {
+        this.pago = pago;
+    }
+    
+    
 
     public Reserva(Usuario usuario, Fechavuelo fechavuelo, Formapago formapago) {
         this.usuario = usuario;

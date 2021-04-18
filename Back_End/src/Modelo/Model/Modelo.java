@@ -16,6 +16,9 @@ import Modelo.Datos.Dao_Tiquete;
 import Modelo.Datos.Dao_Usuario;
 import Modelo.Datos.Dao_Vuelo;
 import Modelo.Logica.Ciudad;
+import Modelo.Logica.Fechavuelo;
+import Modelo.Logica.Formapago;
+import Modelo.Logica.Reserva;
 import Modelo.Logica.Usuario;
 import Modelo.Logica.Vuelo;
 import java.sql.SQLException;
@@ -107,6 +110,26 @@ public class Modelo {
         }
     }
 
+    public void agregar_reserva(Reserva reserva) {
+
+        try {
+            daoReserva.add(reserva);
+        } catch (SQLException ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public Reserva obtener_reserva(int id){
+        Reserva reserva = new Reserva();
+        try {
+            reserva = daoReserva.get(id);
+        } catch (Exception ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reserva;
+    }
+
     public void eliminar_avion(String id) throws Exception {
         if (daoVuelo.verificar_Avion(id)) {
             System.out.println("Si hay un avion");
@@ -157,6 +180,27 @@ public class Modelo {
             daoVuelo.delete(id);
             System.out.println("NO hay un vuelo");
         }
+    }
+    
+    public Fechavuelo obtener_fechavuelo(String id){
+        
+        Fechavuelo fecha = new Fechavuelo();
+        try {
+            fecha = daoFechaVuelo.get(id);
+        } catch (Exception ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return fecha;
+    }
+    public Formapago obtener_formapago(String id){
+        Formapago formaPago = new Formapago();
+        try {
+            formaPago = daoFormaPago.get(id);
+        } catch (Exception ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return formaPago;
     }
 
     public void eliminar_fechavuelo(String id) throws Exception {
@@ -234,6 +278,20 @@ public class Modelo {
         return listaVuelos;
     }
 
+    public Fechavuelo obtener_fecha_vuelo(String id_vuelo) {
+
+        Fechavuelo resultado = new Fechavuelo();
+
+        try {
+            resultado = daoFechaVuelo.obtener_fecha_vuelo(id_vuelo);
+        } catch (Exception ex) {
+            Logger.getLogger(Modelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return resultado;
+
+    }
+
     public static void main(String[] args) throws Exception {
 //        Ciudad ciudad =  new Ciudad();
         Modelo modelo = new Modelo();
@@ -242,6 +300,6 @@ public class Modelo {
 //        System.out.println(vuelo);
         // modelo.eliminar_tipo_avion("02");
 //        modelo.verificar("01");
-        System.out.println(modelo.daoAvion.obtener_verificar_tipoAvion("55"));
+        System.out.println(modelo.daoFechaVuelo.obtener_fecha_vuelo("R-104").getFecha());
     }
 }

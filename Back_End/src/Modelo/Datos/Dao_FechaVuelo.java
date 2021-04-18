@@ -97,6 +97,28 @@ public class Dao_FechaVuelo {
         return resultado;
     }
 
+    public Fechavuelo obtener_fecha_vuelo(String vuelo) throws SQLException, Exception {
+
+        Fechavuelo fecha_vuelo = new Fechavuelo();
+        Dao_Vuelo dao = new Dao_Vuelo();
+        
+        try (Connection cnx = obtenerConexion();
+                PreparedStatement stm = cnx.prepareStatement(CMD_VERIFICAR_VUELO_FECHAVUELO)) {
+            stm.setString(1, vuelo);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+
+                fecha_vuelo.setIdFechaVuelo(rs.getString("idFechaVuelo"));
+                fecha_vuelo.setFecha(rs.getDate("fecha"));
+                fecha_vuelo.setPrecio(rs.getDouble("precio"));
+                fecha_vuelo.setVuelo(dao.get(rs.getString("vuelo")));
+                fecha_vuelo.setDisponibles(rs.getInt("disponibles"));
+
+            }
+        }
+        return fecha_vuelo;
+    }
+
     public boolean update_Vuelo(String vuelo) throws SQLException {
         boolean exito = false;
 
