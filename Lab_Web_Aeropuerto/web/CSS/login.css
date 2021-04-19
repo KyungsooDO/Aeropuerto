@@ -71,12 +71,6 @@ body, html{
   transition: .5s;
 }
 
-.box .inputBoxDiv{
-    display: flex;
-    justify-content: space-between;
-    align-content: space-between;
-}
-
 .box .inputBox input:focus ~label,
 .box .inputBox input:valid ~label{
   top: -18px;
