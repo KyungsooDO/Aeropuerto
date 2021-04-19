@@ -29,9 +29,7 @@
                 </div>
 
 
-                <button value="Login" type="submit">
-                    enviar
-                </button>
+                <input type="submit" name="" value="Login">
             </form>
         </div>
         <script src="JS/Modulo_Logeo/login.js" type="module"></script>

@@ -38,17 +38,16 @@
 
         <div class="wrapper">
             <header>
-                <a href="index.html" class="logo"> LOGO</a>
+                <a href="index.jsp" class="logo" style="color: red"> Aerolinea <strong> SWISS </strong> </a>
                 <ul>
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="#">Discover</a></li>
-                    <li><a href="#">Book</a></li>
                     <li><a href="#">Contact Us</a></li>
                         <% if (u == null) { %>
                     <li><a href="login.jsp">Sign In</a></li>
+                    <li><a href="register.jsp" class="signin">Sign Up</a></li>
                         <%} else {%>
                     <li><a ><%=union%></a>
-                    <li><a href="ServletLogout" class="signin">Sign Up</a></li>
+                    <li><a href="ServletLogout" class="signin">Logout</a></li>
                         <%}%>
                 </ul>
             </header>
@@ -61,34 +60,37 @@
 
                 <div class="btn-box">
                     <button id="btn1" onclick="openFlight()">Flight</button>
-                    <button id="btn2" onclick="openCheckIn()">Check-in Online</button>
-                    <button id="btn3" onclick="openStatus()">Flights Status</button>
+                    <!--  <button id="btn2" onclick="openCheckIn()">Check-in Online</button>
+                      <button id="btn3" onclick="openStatus()">Flights Status</button> -->
                 </div>
                 <!-- Flights tabs-->
                 <div id="tab1" class="tabs-forms-flight">
                     <form form id="formbusqueda"  autocomplete="off" method="POST">
 
-                        <div class="texto">
+                        <div class="autocomplete">
+                            <div class="texto">
 
-                            <input id="origen" type="text" name="origen" required >
-                            <div class="placeholder">Ciudad Origen</div>
+                                <input id="origen" type="text" name="origen" required >
+                                <div class="placeholder">Ciudad Origen</div>
+                            </div>
                         </div>
 
 
-                        <div class="texto">
-                            <input id="destino" type="text" name="destino" required>
-                            <div class="placeholder">Ciudad Destino</div>
-                        </div>
+                        <div class="autocomplete">
+                            <div class="texto">
+                                <input id="destino" type="text" name="destino" required>
+                                <div class="placeholder">Ciudad Destino</div>
+                            </div>
+                        </div>      
 
-
-                        <button  class="btn" type="submit" >
+                        <button  class="btn btn1" type="submit" >
                             Search Flight
                         </button>
                     </form>
                 </div>
 
                 <!-- Check in tabs-->
-                <div id="tab2" class="tabs-forms-flight">
+                <!--<div id="tab2" class="tabs-forms-flight">
                     <form action="#">
 
                         <div class="texto">
@@ -112,10 +114,10 @@
                             Continue
                         </button>
                     </form>
-                </div>
+                </div> -->
 
                 <!-- Flights Status Tabs-->
-                <div id="tab3" class="tabs-forms-flight">
+                <!-- <div id="tab3" class="tabs-forms-flight">
                     <form action="#">
 
                         <div class="texto">
@@ -140,29 +142,13 @@
                         </button>
                     </form>
                 </div>
-
+                -->
             </div>
 
             <!-- FIN de la Barra para busqueda de tiquetes -->
-            <a href="#sec-disc">
-                <div class="scroll-down"></div>
-            </a>
-        </div>
-        <h1> Películas </h1>
-        <h2 id="letraTipo">...</h2>
-        <div id="listadoDiv">
-            <table class="grid">
-                <thead><tr><th id="thTipo"><h2 id="gene">Generos</h2></th></tr></thead>
-                <tbody id="listadoTipo"></tbody>
-            </table>
-        </div>
-        <section id="sec-disc" class="sec-disc">
-            <h1>Flight offers</h1>
-            <button> boton</button>
-        </section>
 
-        <script src="JS/Modulo_Cargar_Ciudades_Vuelos_Paises.js" type="module"></script>
-        <script src="JS/getJSON.js" type="text/javascript"></script>
-        Modulo_Cargar_Ciudades_Vuelos_Paises
+
+            <script src="JS/Modulo_Cargar_Ciudades_Vuelos_Paises.js" type="module"></script>
+            <script src="JS/getJSON.js" type="text/javascript"></script>
     </body>
 </html>
